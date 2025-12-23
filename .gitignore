@@ -26,10 +26,3 @@ Thumbs.db
 
 # Docker
 *.log
-
-# NOT FOR STUDENTS
-/app/data_access/
-/app/entities/
-/app/db_interactor.py
-/app/api.py
-compose.yaml
