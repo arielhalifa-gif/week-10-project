@@ -31,3 +31,8 @@ def deleting_contact():
         return "successfully deleted"
     else:
         return "something went wrong with the delete function"
+
+import uvicorn
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="localhost", port="8000")
