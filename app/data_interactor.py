@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from queries import Functions as f
-import dotenv
 
 app = FastAPI()
 
@@ -13,20 +12,22 @@ def get_all_contacts():
 
 @app.post("/contacts")
 def creating_new_contact(first_name, last_name, phone):
-    new_contact = insert_contact(first_name, last_name, phone)
+    new_contact = f.insert_contact(first_name, last_name, phone)
     return {"message": "contact added succesfully",
             "new contact": new_contact.id}
 
 
 @app.put("/contacts/{id}")
 def update_contact(first_name, last_name, phone):
-    values_to_edit = [first_name, last_name, phone]
-    edit_contact(id, contact_to_edit)
+    contact_to_edit = f.update_contact(first_name, last_name, phone, id)
     return {"message": "contact edited succesfully",
             "contact edited": contact_to_edit}
 
 
 @app.delete("/contacts/{id}")
 def deleting_contact():
-    query = ("DELETE FROM contacts"
-             "WHERE id = %s")
+    message = f.delete_contact(id)
+    if message == "succes":
+        return "successfully deleted"
+    else:
+        return "something went wrong with the delete function"

@@ -18,6 +18,20 @@ class Functions:
             
 
     def update_contact(first_name, last_name, phone, id)
-    query = (f"UPDATE contacts"
-             f"SET first_name = {first_name}, last_name = {last_name}, phone = {phone}"
-             f"WHERE id = {id}")
+        query = (f"UPDATE contacts"
+                f"SET first_name = {first_name}, last_name = {last_name}, phone = {phone}"
+                f"WHERE id = {id}")
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(query)
+        return cursor.execute("SELECT * FROM contacts"
+                                "WHERE id = {id}").fetchall()
+
+
+    def delete_contact(id):
+        query = ("DELETE FROM contacts"
+                "WHERE id = {id}")
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(query)
+        return "succes"
